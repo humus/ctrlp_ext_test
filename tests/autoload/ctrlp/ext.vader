@@ -1,0 +1,31 @@
+Before:
+  function! Test_function(...) dict
+    let self.is_server_communicate_called = 1
+  endfunction
+  function! Fake_exit(...) dict
+    let self.is_ctrlp_exit_called = 1
+    let xx='xx'
+  endfunction
+  let dict_functions = ctrlp#ext#dict_functions()
+  let Function_server_c = dict_functions.server_communicate
+  let Function_ctrlp_exit = dict_functions.ctrlp_exit
+  let dict_functions.server_communicate = function('Test_function')
+  let dict_functions.ctrlp_exit = function('Fake_exit')
+After:
+  let dict_functions.server_communicate = Function_server_c
+  let dict_functions.ctrlp_exit = Function_ctrlp_exit
+Given:
+  
+Execute:
+  let result=ctrlp#ext#init()
+Then:
+  Assert dict_functions.is_server_communicate_called
+
+Given:
+  
+Execute:
+  call ctrlp#ext#accept('e', 'Lorem ipsum dolor sit amet.')
+Then:
+  Assert dict_functions.is_ctrlp_exit_called
+Expect:
+  Lorem ipsum dolor sit amet.
