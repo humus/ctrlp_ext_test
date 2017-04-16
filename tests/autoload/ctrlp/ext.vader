@@ -4,7 +4,6 @@ Before:
   endfunction
   function! Fake_exit(...) dict
     let self.is_ctrlp_exit_called = 1
-    let xx='xx'
   endfunction
   let dict_functions = ctrlp#ext#dict_functions()
   let Function_server_c = dict_functions.server_communicate

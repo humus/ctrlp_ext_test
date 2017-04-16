@@ -41,7 +41,6 @@ endfunction "}}}
 
 fun! ctrlp#ext#init() "{{{
   let type='java.util.ArrayList<Integer>'
-  let xx = 'xx'
   let response = s:dict_functions.server_communicate(type)
   let list = s:DoGetMemberList(response, 0)
   return map(copy(list), 'v:val["word"] . "#" . v:val["menu"]')
